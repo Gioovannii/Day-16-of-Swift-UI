@@ -17,7 +17,7 @@ struct ContentView: View {
     
     
     var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeople + 2)
+        let peopleCount = Double(numberOfPeople)
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
         
@@ -25,8 +25,13 @@ struct ContentView: View {
         let grandTotal = orderAmount + tipValue
         let amountPerPerson = grandTotal / peopleCount
         
-        
         return amountPerPerson
+    }
+    
+    var totalAmountPlustips: Double {
+        let peopleCount = Double(numberOfPeople)
+        let total = totalPerPerson * peopleCount
+        return total
     }
     
     var body: some View {
@@ -36,11 +41,12 @@ struct ContentView: View {
                     TextField("Amount", text: $checkAmount)
                         .keyboardType(.decimalPad)
                     
-                    Picker("Number of people", selection: $numberOfPeople) {
-                        ForEach(2 ..< 100) {
-                            Text("\($0) people")
-                        }
-                    }
+                    TextField("Number of people", text: .constant("\(numberOfPeople)"))
+//                    Picker("Number of people", selection: $numberOfPeople) {
+//                        ForEach(2 ..< 100) {
+//                            Text("\($0) people")
+//                        }
+//                    }
                 }
                 
                 Section(header: Text("How much tip do you want to leave ?")) {
@@ -52,8 +58,12 @@ struct ContentView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section {
+                Section(header: Text("Amount per person")) {
                     Text("$\(totalPerPerson, specifier: "%.2f")")
+                }
+                
+                Section(header: Text("Original bill")) {
+                    Text("Total amount \(totalAmountPlustips, specifier: "%.2f")")
                 }
             }
             .navigationBarTitle("We Split")
