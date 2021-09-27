@@ -28,7 +28,8 @@ struct ContentView: View {
     }
     
     var totalBill: Double {
-        let peopleCount = Double(numberOfPeople + 2)
+        let numberOfPeople = Int(numberOfPeople) ?? 0
+        let peopleCount = Double(numberOfPeople)
 
         let total = totalPerPerson
         return total * peopleCount
