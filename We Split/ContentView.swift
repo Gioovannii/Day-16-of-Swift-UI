@@ -56,7 +56,13 @@ struct ContentView: View {
                 }
                 
                 Section(header: Text("Montant par personne")) {
-                    Text("$\(totalPerPerson, specifier: "%.2f")")
+                    if totalPerPerson.isNaN || totalPerPerson.isInfinite {
+                        Text("$0")
+                    } else {
+                        Color.white.warningMarked(with: "$\(totalPerPerson)", of: Double(tipPercentages[tipPercentage]))
+//                        Text("$\(totalPerPerson, specifier: "%.2f")")
+//                            .foregroundColor(isZeroTips ? .red : .yellow)
+                    }
                 }
                 
                 Section(header: Text("Facture totale avec pourboire")) {
