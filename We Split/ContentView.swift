@@ -42,11 +42,8 @@ struct ContentView: View {
                     TextField("Montant", text: $checkAmount)
                         .keyboardType(.decimalPad)
                     
-                    Picker("Nombre de personnes", selection: $numberOfPeople) {
-                        ForEach(2 ..< 100) {
-                            Text("\($0) personnes")
-                        }
-                    }
+                    TextField("Nombre de personnes", text: $numberOfPeople)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Combien de pourboire voulez-vous laissez ?")) {
