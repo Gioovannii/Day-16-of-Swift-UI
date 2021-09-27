@@ -66,8 +66,11 @@ struct ContentView: View {
                 }
                 
                 Section(header: Text("Facture totale avec pourboire")) {
-                    Text("$\(totalBill, specifier: "%.2f")")
-                    
+                    if totalPerPerson.isNaN || totalPerPerson.isInfinite {
+                        Text("$0")
+                    } else {
+                        Text("$\(totalBill, specifier: "%.2f")")
+                    }
                 }
             }
             .navigationBarTitle("On partage")
